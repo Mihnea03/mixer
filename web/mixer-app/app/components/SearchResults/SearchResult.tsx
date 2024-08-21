@@ -17,7 +17,7 @@ export default function SearchResult({ result }: SearchResultProps) {
 			<div className='font-bold text-3xl my-8'>
 				Results
 			</div>
-			<div className='space-y-2 w-2/3 justify-center'>
+			<div className='space-y-2 w-full flex justify-center flex-col'>
 				{
 					result.tracks && (<TopicResult title="Tracks" items={result.tracks.items.map((track: TrackT) => {
 						return <TrackPreview track={track} />

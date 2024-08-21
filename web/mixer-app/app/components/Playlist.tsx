@@ -1,24 +1,27 @@
 import React from 'react'
+import { baseImageUnknown } from '../constants';
 
 type PlaylistProps = {
 	playlist: PlaylistT
 }
 
 export default function Playlist({ playlist }: PlaylistProps) {
-	let bestImage = {
-		url: "",
-		width: 50,
-		height: 50
-	};
+	let bestImage = baseImageUnknown;
 	if (playlist) {
 		bestImage = playlist.images.length >= 2 ? playlist.images[1] : playlist.images[0];
+	}
+	let url = undefined;
+	try {
+		url = bestImage.url
+	} catch (e) {
+		url = baseImageUnknown.url
 	}
 
 	return (
 		playlist && (
 			<div className='flex flex-grow p-4 hover:bg-gray-900'>
 				<a className='flex pr-24'>
-					<img className='w-32 h-32 mr-6' src={bestImage.url} alt={playlist.name} />
+					<img className='w-32 h-32 mr-6' src={url} alt={playlist.name} />
 					<div>
 						<h1 className='text-xl font-semibold'>{playlist.name}</h1>
 						<h1 className='text-xl mt-3'>{playlist.description ? playlist.description : "No description provided"}</h1>

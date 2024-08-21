@@ -9,7 +9,7 @@ type TopicResultProps = {
 
 export default function TopicResult({ title, items }: TopicResultProps) {
 	return (
-		<div className='flex flex-col w-full self-center'>
+		<div className='flex flex-col w-2/3 self-center'>
 			<div className='justify-self-start font-bold text-2xl mt-4 mb-6'>{title}</div>
 			<Carousel items={
 				items

@@ -4,6 +4,7 @@ import SidebarAction from "./SidebarAction";
 import Playlists from "./Playlists";
 import Search from "./Search";
 import Home from "./Home";
+import { baseImageUnknown } from "../constants";
 
 type SidebarProps = {
 	user: UserT
@@ -30,13 +31,15 @@ const Sidebar = ({ user, setCurrPage, accessToken, query, setQuery }: SidebarPro
 		}
 	]
 
-	let bestImage = {
-		url: "",
-		width: 50,
-		height: 50
-	};
+	let bestImage = baseImageUnknown;
 	if (user) {
 		bestImage = user.images.length >= 2 ? user.images[1] : user.images[0];
+	}
+	let url = undefined;
+	try {
+		url = bestImage.url
+	} catch (e) {
+		url = baseImageUnknown.url
 	}
 
 	useEffect(() => {
@@ -61,7 +64,7 @@ const Sidebar = ({ user, setCurrPage, accessToken, query, setQuery }: SidebarPro
 					{user &&
 						<div className="p-2 flex items-center self-center mt-5 hover:bg-gray-800 transition ease-in-out delay-50" onClick={() => setCurrPage(<Account user={user} />)}>
 							<button className="hover:opacity-50 transition ease-in-out delay-50">
-								<img className="sticky rounded-full origin-center w-16 h-16" src={bestImage.url} width={48} height={48} />
+								<img className="sticky rounded-full origin-center w-16 h-16" src={url} width={48} height={48} />
 							</button>
 							<div className="flex-grow ml-5">
 								<h1 className="text-xl">{user.display_name}</h1>

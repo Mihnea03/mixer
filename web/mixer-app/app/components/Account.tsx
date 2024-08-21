@@ -1,18 +1,21 @@
 import React from 'react'
 import Title from './Title';
+import { baseImageUnknown } from '../constants';
 
 type AccountProps = {
 	user: UserT
 }
 
 export default function Account({ user }: AccountProps) {
-	let bestImage = {
-		url: "",
-		width: 50,
-		height: 50
-	};
+	let bestImage = baseImageUnknown;
 	if (user) {
 		bestImage = user.images.length >= 2 ? user.images[1] : user.images[0];
+	}
+	let url = undefined;
+	try {
+		url = bestImage.url
+	} catch (e) {
+		url = baseImageUnknown.url
 	}
 
 	return (
@@ -20,7 +23,7 @@ export default function Account({ user }: AccountProps) {
 			<>
 				<Title name='Account' />
 				<a className="hover:opacity-50 transition ease-in-out delay-50" href={user.external_urls.spotify}>
-					<img className="sticky rounded-full origin-center border-green-500 border-4 w-32 h-32 mt-7" src={bestImage.url} width={48} height={48} />
+					<img className="sticky rounded-full origin-center border-green-500 border-4 w-32 h-32 mt-7" src={url} width={48} height={48} />
 				</a>
 				<div className='text-2xl font-bold mt-2 mb-2'>{user.display_name}</div>
 				<div className='mb-4 flex space-x-1'>
