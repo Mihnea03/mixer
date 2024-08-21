@@ -1,21 +1,12 @@
 import React from 'react'
-import { baseImageUnknown } from '../constants';
+import { baseImageUnknown, getImageUrl } from '../constants';
 
 type PlaylistProps = {
 	playlist: PlaylistT
 }
 
 export default function Playlist({ playlist }: PlaylistProps) {
-	let bestImage = baseImageUnknown;
-	if (playlist) {
-		bestImage = playlist.images.length >= 2 ? playlist.images[1] : playlist.images[0];
-	}
-	let url = undefined;
-	try {
-		url = bestImage.url
-	} catch (e) {
-		url = baseImageUnknown.url
-	}
+	const url = getImageUrl(playlist.images);
 
 	return (
 		playlist && (

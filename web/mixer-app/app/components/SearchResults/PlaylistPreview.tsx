@@ -1,4 +1,4 @@
-import { baseImageUnknown } from '@/app/constants';
+import { baseImageUnknown, getImageUrl } from '@/app/constants';
 import React from 'react'
 
 type PlaylistPreviewProps = {
@@ -6,16 +6,7 @@ type PlaylistPreviewProps = {
 }
 
 export default function PlaylistPreview({ playlist }: PlaylistPreviewProps) {
-	let bestImage = baseImageUnknown;
-	if (playlist) {
-		bestImage = playlist.images.length >= 2 ? playlist.images[1] : playlist.images[0];
-	}
-	let url = undefined;
-	try {
-		url = bestImage.url
-	} catch (e) {
-		url = baseImageUnknown.url
-	}
+	const url = getImageUrl(playlist.images);
 
 	return (
 		<div className='flex flex-col hover:bg-slate-900 p-2 transition ease-in-out duration-75'>

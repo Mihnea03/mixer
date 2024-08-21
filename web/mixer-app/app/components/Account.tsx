@@ -1,22 +1,13 @@
 import React from 'react'
 import Title from './Title';
-import { baseImageUnknown } from '../constants';
+import { baseImageUnknown, getImageUrl } from '../constants';
 
 type AccountProps = {
 	user: UserT
 }
 
 export default function Account({ user }: AccountProps) {
-	let bestImage = baseImageUnknown;
-	if (user) {
-		bestImage = user.images.length >= 2 ? user.images[1] : user.images[0];
-	}
-	let url = undefined;
-	try {
-		url = bestImage.url
-	} catch (e) {
-		url = baseImageUnknown.url
-	}
+	const url = getImageUrl(user.images);
 
 	return (
 		user && (

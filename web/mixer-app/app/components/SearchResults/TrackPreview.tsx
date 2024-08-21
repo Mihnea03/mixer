@@ -1,4 +1,4 @@
-import { baseImageUnknown } from '@/app/constants';
+import { baseImageUnknown, getImageUrl } from '@/app/constants';
 import React from 'react'
 
 type TrackPreviewProps = {
@@ -6,16 +6,7 @@ type TrackPreviewProps = {
 }
 
 export default function TrackPreview({ track }: TrackPreviewProps) {
-	let bestImage = baseImageUnknown;
-	if (track) {
-		bestImage = track.album.images.length >= 2 ? track.album.images[1] : track.album.images[0];
-	}
-	let url = undefined;
-	try {
-		url = bestImage.url
-	} catch (e) {
-		url = baseImageUnknown.url
-	}
+	const url = getImageUrl(track.album.images);
 
 	return (
 		<div className='flex flex-col hover:bg-slate-900 p-2 transition ease-in-out duration-75'>

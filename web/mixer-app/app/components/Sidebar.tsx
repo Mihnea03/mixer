@@ -4,7 +4,7 @@ import SidebarAction from "./SidebarAction";
 import Playlists from "./Playlists";
 import Search from "./Search";
 import Home from "./Home";
-import { baseImageUnknown } from "../constants";
+import { baseImageUnknown, getImageUrl } from "../constants";
 
 type SidebarProps = {
 	user: UserT
@@ -31,16 +31,7 @@ const Sidebar = ({ user, setCurrPage, accessToken, query, setQuery }: SidebarPro
 		}
 	]
 
-	let bestImage = baseImageUnknown;
-	if (user) {
-		bestImage = user.images.length >= 2 ? user.images[1] : user.images[0];
-	}
-	let url = undefined;
-	try {
-		url = bestImage.url
-	} catch (e) {
-		url = baseImageUnknown.url
-	}
+	const url = getImageUrl(user.images);
 
 	useEffect(() => {
 		setCurrPage(<Home query={query} setQuery={setQuery} accessToken={accessToken} />);
