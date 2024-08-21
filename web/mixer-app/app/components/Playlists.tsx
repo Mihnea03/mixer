@@ -43,18 +43,20 @@ export default function Playlists({ user, accessToken }: PlaylistsProps) {
 						<h2 className='mx-1 font-bold'>{playlists.total}</h2>
 						<h1>playlists</h1>
 					</div>
-					<div className='space-y-8'>
-						{
-							playlists?.items.sort((p1, p2) => {
-								if (!p1?.tracks || !p2?.tracks)
-									return -1;
+					{playlists.total > 0 &&
+						<div className='space-y-8'>
+							{
+								playlists?.items.sort((p1, p2) => {
+									if (!p1?.tracks || !p2?.tracks)
+										return -1;
 
-								return p2?.tracks.total - p1?.tracks.total
-							}).map((playlist, index) => {
-								return <Playlist playlist={playlist} key={index} />
-							})
-						}
-					</div>
+									return p2?.tracks.total - p1?.tracks.total
+								}).map((playlist, index) => {
+									return <Playlist playlist={playlist} key={index} />
+								})
+							}
+						</div>
+					}
 				</>
 			) : (
 				<div className='flex text-xl my-8'>
